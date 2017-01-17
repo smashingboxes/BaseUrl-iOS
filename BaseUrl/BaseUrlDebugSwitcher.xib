@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BaseUrlDebugSwitcher" customModule="BaseUrl" customModuleProvider="target">
             <connections>
+                <outlet property="domainField" destination="Wj3-za-zGF" id="SPe-w4-gk8"/>
+                <outlet property="protocolField" destination="Cn9-LG-jTW" id="JXN-Vf-u7C"/>
                 <outlet property="view" destination="iN0-l3-epB" id="6FO-ua-CqG"/>
             </connections>
         </placeholder>
