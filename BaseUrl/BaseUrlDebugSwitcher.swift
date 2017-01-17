@@ -17,7 +17,8 @@ class BaseUrlDebugSwitcher: UIViewController
     
     init(baseUrl: BaseUrl) {
         self.baseUrl = baseUrl
-        super.init(nibName: "BaseUrlDebugSwitcher", bundle: nil)
+        let bundle = Bundle(for: BaseUrlDebugSwitcher.self)
+        super.init(nibName: "BaseUrlDebugSwitcher", bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {
