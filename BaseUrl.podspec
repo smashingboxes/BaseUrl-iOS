@@ -1,15 +1,13 @@
 Pod::Spec.new do |s|
   s.name         = "BaseUrl"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "Specify a base URL for your app with facility to change it in-app using a debug modal"
   s.platform      = :ios, "8.0"
-  #s.description  = <<-DESC
-  #                 DESC
 
   s.homepage     = "https://github.com/smashingboxes/BaseUrl-iOS"
   s.license      = "MIT"
   s.author       = { "David Sweetman" => "davids@smashingboxes.com" }
-  s.source       = { :git => "https://github.com/smashingboxes/BaseUrl-iOS.git", :tag => "0.0.5" }
+  s.source       = { :git => "https://github.com/smashingboxes/BaseUrl-iOS.git", :tag => "0.0.6" }
 
   s.pod_target_xcconfig = {
     'SWIFT_ACTIVE_COMPILATION_CONDITIONS[config=Debug]' => 'DEBUG',
