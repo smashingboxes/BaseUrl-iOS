@@ -25,16 +25,12 @@ let BaseUrlKeys = (
 public class BaseUrl
 {
     fileprivate weak var delegate: BaseUrlDelegate!
-    fileprivate let suiteName: String?
+    fileprivate let defaults: UserDefaults
     
-    required public init(delegate: BaseUrlDelegate, suiteName: String? = nil) {
+    required public init(delegate: BaseUrlDelegate, defaults: UserDefaults = UserDefaults.standard) {
         self.delegate = delegate
-        self.suiteName = suiteName
+        self.defaults = defaults
     }
-    
-    fileprivate lazy var defaults: UserDefaults = {
-        return UserDefaults(suiteName: self.suiteName) ?? UserDefaults.standard
-    }()
     
     public var url: String { get { return urlProtocol() + domain() } }
     
