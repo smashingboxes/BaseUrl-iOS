@@ -25,16 +25,22 @@ let BaseUrlKeys = (
 public class BaseUrl
 {
     fileprivate weak var delegate: BaseUrlDelegate!
+    fileprivate let suiteName: String?
     
-    required public init(delegate: BaseUrlDelegate) {
+    required public init(delegate: BaseUrlDelegate, suiteName: String? = nil) {
         self.delegate = delegate
+        self.suiteName = suiteName
     }
+    
+    fileprivate lazy var defaults: UserDefaults = {
+        return UserDefaults(suiteName: self.suiteName) ?? UserDefaults.standard
+    }()
     
     public var url: String { get { return urlProtocol() + domain() } }
     
     public func urlProtocol() -> String {
         #if DEBUG || STAGING
-            if let value = UserDefaults.standard.value(forKey: BaseUrlKeys.urlProtocol) as? String {
+            if let value = defaults.value(forKey: BaseUrlKeys.urlProtocol) as? String {
                 return value
             }
         #endif
@@ -44,7 +50,7 @@ public class BaseUrl
     
     public func domain() -> String {
         #if DEBUG || STAGING
-            if let value = UserDefaults.standard.value(forKey: BaseUrlKeys.domain) as? String {
+            if let value = defaults.value(forKey: BaseUrlKeys.domain) as? String {
                 return value
             }
         #endif
@@ -75,24 +81,24 @@ public class BaseUrl
     
     internal func retreivePrevious() -> (domain: String?, urlProtocol: String?) {
         return (
-            domain: UserDefaults.standard.string(forKey: BaseUrlKeys.previousDomain),
-            urlProtocol: UserDefaults.standard.string(forKey: BaseUrlKeys.previousUrlProtocol)
+            domain: defaults.string(forKey: BaseUrlKeys.previousDomain),
+            urlProtocol: defaults.string(forKey: BaseUrlKeys.previousUrlProtocol)
         )
     }
     
     private func set(value: String?, forKey key: String) {
         if value?.isEmpty ?? true {
-            UserDefaults.standard.removeObject(forKey: key)
+            defaults.removeObject(forKey: key)
         } else {
-            UserDefaults.standard.setValue(value, forKey: key)
+            defaults.setValue(value, forKey: key)
         }
     }
     
     internal func reset() {
-        UserDefaults.standard.removeObject(forKey: BaseUrlKeys.domain)
-        UserDefaults.standard.removeObject(forKey: BaseUrlKeys.urlProtocol)
-        UserDefaults.standard.removeObject(forKey: BaseUrlKeys.previousDomain)
-        UserDefaults.standard.removeObject(forKey: BaseUrlKeys.previousUrlProtocol)
+        defaults.removeObject(forKey: BaseUrlKeys.domain)
+        defaults.removeObject(forKey: BaseUrlKeys.urlProtocol)
+        defaults.removeObject(forKey: BaseUrlKeys.previousDomain)
+        defaults.removeObject(forKey: BaseUrlKeys.previousUrlProtocol)
     }
     #endif
 }
