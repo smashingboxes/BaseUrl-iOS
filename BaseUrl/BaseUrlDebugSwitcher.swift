@@ -25,10 +25,17 @@ class BaseUrlDebugSwitcher: UIViewController
         super.init(coder: aDecoder)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        protocolField.text = baseUrl?.urlProtocol()
+        domainField.text = baseUrl?.domain()
+    }
+    
     @IBAction func usePreviousButtonPressed(sender: AnyObject?) {
         #if DEBUG || STAGING
             let previous = baseUrl?.retreivePrevious()
-            baseUrl?.setDebug(domain: previous?.domain, urlProtocol: previous?.urlProtocol)
+            protocolField.text = previous?.urlProtocol
+            domainField.text = previous?.domain
         #endif
     }
     
